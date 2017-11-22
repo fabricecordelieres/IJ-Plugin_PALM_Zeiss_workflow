@@ -1,0 +1,276 @@
+var pulledElements;
+var fileList;
+var filesDoneList=newArray();
+
+var nColumns=6;
+var nRows=6;
+var nFilesToProceed= nColumns* nRows;
+
+var zero_stageposition_xCoordinate=-40;//-40;//118;
+var zero_stageposition_yCoordinate=-880;//0;//-880; -30;
+var enlarge=15;
+
+var minSize=1000;
+var maxSize="Infinity";
+var minCirc=0.35;
+var maxCirc=1;
+
+var delayImg=2000;
+
+var stopMonitoring=false;
+
+var zeroStageElement=" zero_stageposition_x-coordinate="+zero_stageposition_xCoordinate+" zero_stageposition_y-coordinate="+zero_stageposition_yCoordinate;
+
+//********************************************************
+macro "Full Process Action Tool - C002D41Db1C0adD38D3cDccC06aD19De9CcccD04D0bD40D4fDb0DbfDf4DfbC046D2cDdcC0ceD69C09cD2bDdbC015D23D32Dc2Dd3C0cdD6eC07bD33Dc3CeffDb7Db8C047D1aDeaC6adD62D72D82D92C19cD35C023D60D90C0bdD4dD5bDabDbdC07bD26Dd6CeeeD12D1dD21D2eDd1DdeDe2DedC566D05D0aD13D1cDe3DecDf5DfaC2adD85C09dDcaC034D4eDbeC0deD6cD9cC17bD42Db2CfffD47D48D96C16aD61D91C6beDc7C39dD53D63D73D83D93Da3C013D07D08Df7Df8C0bdD4bD5aD6aD7aDaaDb9DbbC06bD18De8C566D31D50Da0Dc1C0eeD7eD8eC19cD54D64D74D84D94Da4C026D15D51Da1De5C0ceD5cD8aD8bDacC08cD55D65D75D76Da5Dd8CeffD49D68D99C057D3dDcdC6ceD87C2adD36D66C023D06D09Df6Df9C08cD28D29Db5Dc5Dc6Dd7Dd9C5adD52Da2C0adD3bDbaDcbC044D6fD7fD8fD9fC0deD5dD7cD8cDadC38bD71D81C566D3eD5fDafDceC9deDa6C002D14D70D80De4C0adD39D3aD79C06aD17D24Dd4De7C244D2dDddC0efD6dD9dC18cD44Db4C0ceD4cD6bD7bD9bDbcCeffD46D67C059D16De6C19cDb6C023D1bDebC07cD27C2ceD89C08cD34C8ceD77C07bD25Dd5C0efD7dD8dC089D5eDaeC6ceDc8C39cD43Db3C4adD45C9efDa9C244D22Dd2C1deD9aC09cD2aDc9DdaC0cdD9eC4adD95CadeD56C1adD37C2ceD4aC08cDc4C7dfD78C5deD88C4bdD86CaefD59"{
+	dir=getDirectory("Choose a Directory to Process");
+	fullProcess(dir);
+}
+
+//********************************************************
+macro " Action Tool - "{
+
+}
+
+//********************************************************
+macro "Set Parameters Action Tool - C830D33D34D35D36D37D38D39D3aD3bD3cD3dD3eD3fD43D4fD5fD6fD7fD8fD9fDafDbfDc3DcfDd3Dd4Dd5Dd6Dd7Dd8Dd9DdaDdbDdcDddDdeDdfCf00D78Cf00D55D58D66D69D75CaaaD52D53D54D5cD62D63D64D6cD71D72D73D74D76D79D7cD83D84D86D89D8cD91D92D93D94D96D99D9cDa2Da3Da4Da6Da9DacDb2Db3Db4Db6Db9Dbc"{
+	setParameters();
+}
+
+//********************************************************
+macro "Create Folders Action Tool - C762Df7Df8C763D05D06Cfc0D1aD2aD3aD4aD5aD6aD7aD8aD9aDaaDbaDcaDdaDeaC998D81Ce81Da4Cfb3D95Da5Cfb1D83D93Da3Db3Dc3Dd3Cb90De2C775Df2Cfd0D2bD2cD3bD3cD4bD4cD5bD5cD6bD6cD7bD7cD8bD8cD9bD9cDabDacDbbDbcDcbDccDdbDdcCccbD12Cfc0D69D79D89D99Da9Db9Dc9Dd9Cfb4D85Cfb1Dc7C763D07D08Df3Df6Ca83D63Cfd0D1bD1cDebDecCfd7D75Cfb0Da8Db8Dc8Dd8De9Cfb4Dd5Cfb0D98Ced0D2dD3dD4dD5dD6dD7dD8dD9dDadDbdDcdDddC887D91Da1Db1Dc1Dd1CcccD0eDfeCfc7D15Cfc2Db7C762D09D0aD0bDf9DfaDfbC774D2eD3eD4eD5eD6eD7eD8eD9eDaeDbeDceDdeCbbaD22D32D42D52Cfb0Dd7De7De8Cfc3D27D37D47D57D67D77D87D97Cdb0D1dD92Da2Db2Dc2Dd2DedC887D03CfebD24D34D44D54Cfc6D26D36D46D56D66D76D86D96Da6Db6Cfc2D28D38D48D58D68C973D13Ca84D23D33D43D53Cfd9D14Cfb1De3Cfc0D19D29D39D49D59CdddD71Df1C753Df4Df5C664D72C998De1Ce91Dd4Cfb3De6Cba0D82C776D1eDeeCfebD64Cfc5D16Cfb1D18C772D0cDfcCfd8D25D35D45D55D65Cea2De5Cd71D84CfffD02C764D04Ce81Db4Dc4Cfb3Db5Cfb5D74Cfc1D88Cc91D73C774D0dDfdCaaaD62Cfb3Dc5Cfc5Dd6Cfc1D78Ce81D94Cfc3D17Da7Cfc5Dc6Ce81De4"{
+	dir=getDirectory("Choose the Parent Directory");
+	createFolders(dir);
+}
+
+//********************************************************
+macro "Make Grid Action Tool - C226D12D21D22D23D32C395D56D65D66D67D76C568DdaDe9DeaDebDfaC5f8D5eD6dD6eD6fD7eC713D92Da1Da2Da3Db2C9a2D1aD29D2aD2bD3aC32aD5aD69D6aD6bD7aC6efD96Da5Da6Da7Db6C055D16D25D26D27D36C188D1eD2dD2eD2fD3eCb77DdeDedDeeDefDfeCbbaD9aDa9DaaDabDbaC617Dd2De1De2De3Df2C5c7D52D61D62D63D72C94fD9eDadDaeDafDbeCcaeDd6De5De6De7Df6"{
+	dir=getDirectory("Choose a Directory Where Grid Elements will be saved");
+	makeGrid(dir);
+}
+
+//********************************************************
+macro "Monitor Folder Action Tool - C000D04D05D06D07D08D09D0aD0bD14D15D16D17D18D19D1aD1bD24D25D26D27D28D29D2aD2bD34D35D36D37D38D39D3aD3bD44D45D46D47D48D49D4aD4bD54D55D56D57D58D59D5aD5bD64D65D66D67D68D69D6aD6bD74D75D76D77D78D84D85D86D87D89D8aD8bD8cD90D91D94D95D96D98D9dDa0Da1Da4Da5Da6Da8DadDb0Db1Db4Db5Db6Db8DbdDc0Dc1Dc4Dc5Dc6Dc8DcdDd4Dd5Dd6Dd9DdaDdbDdcDddDdeDedDeeDefDfeDffCbbbD12Dd2De3C444D81C888D03D13D1cD21D22D23D2cD31D32D33D3cD41D42D43D4cD51D52D53D5cD61D62D63D6cD71D72D73D82D83D92D93Da2Da3Db2Db3Dc2Dc3Dd1Dd3De4De5De6"{
+	dir=getDirectory("Choose a Directory to Monitor");
+	pulledElements="["+dir+"_Pulled-Elements.txt]";
+	stopMonitoring=false;
+	filesDoneList=newArray();
+	monitor(dir);
+}
+
+//********************************************************
+macro "Stop Monitoring Folder Action Tool - C000D03D04D05D06D07D08D09D0aD14D15D16D17D18D19D1aD1bD25D26D27D28D29D2aD2bD36D37D38D39D3aD47D48D49D58D63D73D74D81D83D84D85D90D91D93D94Da0Da1Da3Db0Db1C000D80Cf00D00D01D02D0eD0fD10D11D12D13D1dD1eD1fD20D21D22D23D24D2cD2dD2eD2fD31D32D33D34D35D3bD3cD3dD3eD3fD42D43D44D45D46D4aD4bD4cD4dD4eD53D54D55D56D57D59D5aD5bD5cD5dD64D65D66D67D68D69D6aD6bD6cD75D76D77D78D79D7aD7bD86D87D88D89D8aD95D96D97D98D99D9aD9bDa4Da5Da6Da7Da8Da9DaaDabDacDb3Db4Db5Db6Db7Db9DbaDbbDbcDbdDc2Dc3Dc4Dc5Dc6DcaDcbDccDcdDceDd1Dd2Dd3Dd4Dd5DdbDdcDddDdeDdfDe0De1De2De3De4DecDedDeeDefDf0Df1Df2Df3DfdDfeDffCdddD0cD9eDbeDd0De9DebC999D52D62D72D82D92Da2Db2Dd6C222D9dDd9CeeeDe6CaaaD70C222D41D51D61D8cDadDc8DdaC888D8bD9cDb8Dc9CeeeD7dDd7CcccD1cD30D40D50D60DaeDe5DeaC111D71Dc1C888D7cD8dDc7Dd8C111D0bDc0"{
+	stopMonitoring=true;
+}
+
+//----------------------------------------------
+function setParameters(){
+	Dialog.create("Automated Invadosomes Isolation Parameters");
+
+	Dialog.addMessage("Stage parameters");
+	Dialog.addNumber("X_shift", zero_stageposition_xCoordinate);
+	Dialog.addNumber("Y_shift", zero_stageposition_yCoordinate);
+
+	Dialog.addMessage("Make Grid");
+	Dialog.addNumber("Number_of_columns", nColumns);
+	Dialog.addNumber("Number_of_rows", nRows);
+
+	Dialog.addMessage("Images to process");
+	Dialog.addNumber("Number_of_images_to_analyze", nFilesToProceed);
+
+	Dialog.addMessage("Detection parameters");
+	Dialog.addNumber("Minimum_size_(pixels)", minSize);
+	Dialog.addNumber("Maximum_size_(pixels)", maxSize);
+	Dialog.addNumber("Minimum_circularity", minCirc);
+	Dialog.addNumber("Maximum_circularity", maxCirc);
+
+	Dialog.addMessage("ROIs parameters");
+	Dialog.addNumber("ROI_enlargement_(pixels)", enlarge);
+
+	Dialog.addMessage("Misc parameters");
+	Dialog.addNumber("Min_delay_between_2_image_checks_(msec)", delayImg);
+	Dialog.show();
+
+	zero_stageposition_xCoordinate=Dialog.getNumber();
+	zero_stageposition_yCoordinate=Dialog.getNumber();
+	zeroStageElement=" zero_stageposition_x-coordinate="+zero_stageposition_xCoordinate+" zero_stageposition_y-coordinate="+zero_stageposition_yCoordinate;
+	nColumns=Dialog.getNumber();
+	nRows=Dialog.getNumber();
+	nFilesToProceed=Dialog.getNumber();
+	minSize=Dialog.getNumber();
+	maxSize=Dialog.getNumber();
+	minCirc=Dialog.getNumber();
+	maxCirc=Dialog.getNumber();
+	enlarge=Dialog.getNumber();
+	delayImg=Dialog.getNumber();
+	nFilesToProceed=nColumns*nRows;
+}
+
+//----------------------------------------------
+function fullProcess(dir){
+	setParameters()
+
+	gridFolder=dir+"Grid"+File.separator;
+	elementsFolder=dir+"Elements"+File.separator;
+
+	createFolders(dir);
+
+	gridFiles=getSpecificFileList(gridFolder, ".tif");
+	while(gridFiles.length==0){
+		wait(100);
+		gridFiles=getSpecificFileList(gridFolder, ".tif");
+		showStatus("Waiting for the image to generate grid");
+	}
+
+	open(gridFolder+gridFiles[0]);
+	wait(100);
+
+	makeGrid(gridFolder);
+	print("--------------------");
+	print("Grid Elements Generated");
+	print("--------------------");
+	print("Monitoring Started");
+	monitor(elementsFolder);
+	print("Monitoring Done");
+	print("--------------------");
+}
+
+
+//----------------------------------------------
+function createFolders(dir){
+	gridFolder=dir+"Grid";
+	elementsFolder=dir+"Elements";
+
+	File.makeDirectory(gridFolder);
+	File.makeDirectory(elementsFolder);
+}
+
+//----------------------------------------------
+function makeGrid(dir){
+	infos=getInfo("image.description");
+	if(nImages<1 || indexOf(infos, "<")==-1) exit("Open a Zeiss PALM image first !!!");
+	
+	width=getWidth;
+	height=getHeight;
+	direction=0;
+	index=1;
+
+	roiManager("Reset");
+	for(y=0; y<nRows; y++){
+		if(direction==0){
+			for(x=0; x<nColumns; x++){
+				makePoint((x+0.5)*width, (y+0.5)*height);
+				roiManager("Add");
+				roiManager("Select", roiManager("Count")-1);
+				roiManager("Rename", index);
+				index++;
+			}
+			direction=1;
+		}else{
+			for(x=nColumns-1; x>=0; x--){
+				makePoint((x+0.5)*width, (y+0.5)*height);
+				roiManager("Add");
+				roiManager("Select", roiManager("Count")-1);
+				roiManager("Rename", index);
+				index++;
+			}
+			direction=0;
+		}
+	}
+	run("Export RoiManager to Zeiss PALM Element...", "save=["+dir+"Grid_elements.txt]"+zeroStageElement);
+}
+
+//----------------------------------------------
+function monitor(dir){
+	run("Close All");
+	while(filesDoneList.length<nFilesToProceed && !stopMonitoring){
+		fileList=getSpecificFileList(dir, ".tif");
+		
+		for(i=0; i<fileList.length; i++){
+			if(!fileHasBeenProcessed(fileList[i])){
+				wait(delayImg);
+				processFile(fileList[i]);
+				filesDoneList=Array.concat(filesDoneList, newArray(fileList[i]));
+			}
+		}
+		wait(100);
+		showStatus((nFilesToProceed-filesDoneList.length)+" to process");
+	}
+}
+
+//----------------------------------------------
+function processFile(file){
+	print("--------------------");
+	print("Processing file "+file);
+	
+	roiManager("Reset");
+	open(dir+file);
+
+	//***********************************************************
+	infos=getInfo("image.description");
+	run("Split Channels");
+	close(file+" (blue)");
+	close(file+" (green)");
+	selectWindow(file+" (red)");
+	setMetadata("Info", infos);	
+	run("Median...", "radius=2");
+	run("Subtract Background...", "rolling=20");
+	makeRectangle(1, 2, 1387, 987);
+	setAutoThreshold("Default dark");
+	setOption("BlackBackground", false);
+	run("Convert to Mask");
+	run("Options...", "iterations=4 count=1");
+	run("Close-");
+	run("Options...", "iterations=1 count=1");
+	run("Fill Holes");
+	//run("Watershed");
+	run("Analyze Particles...", "size="+minSize+"-"+maxSize+" pixel circularity="+minCirc+"-"+maxCirc+" add");
+	
+	for(i=0; i<roiManager("Count"); i++){
+		roiManager("Select", i);
+		run("Enlarge...", "enlarge="+enlarge+" pixel");
+		roiManager("Update");
+	}
+	//***********************************************************
+
+	roiManager("Show All without labels");
+	currElementFile="["+dir+replace(file, ".tif", ".txt")+"]";
+	pulledElements="["+dir+"_Pulled-Elements.txt]";
+	print(currElementFile+"\n"+ pulledElements);
+	run("Export RoiManager to Zeiss PALM Element...", "save="+currElementFile+zeroStageElement);
+
+	close();	
+
+	if(filesDoneList.length==0){
+		File.copy(dir+replace(file, ".tif", ".txt"), dir+"_Pulled-Elements.txt");
+	}else{
+		run("Zeiss PALM Element: Pull two files together...", "first_file="+pulledElements+" second_file="+currElementFile+" save="+pulledElements);
+	}
+
+	print("-------Done-------");
+}
+
+//----------------------------------------------
+function getSpecificFileList(dir, ext){
+	fileList=getFileList(dir);
+	count=0;
+	for(i=0; i<fileList.length; i++) if(endsWith(fileList[i], ext)) count++;
+	
+	out=newArray(count);
+	count=0;
+	for(i=0; i<fileList.length; i++){
+		if(endsWith(fileList[i], ext)){
+			out[count]=fileList[i];
+			count++;
+		}
+	}
+	return out;
+}
+
+//----------------------------------------------
+function fileHasBeenProcessed(file){
+	for(i=0; i<filesDoneList.length; i++){
+		if(file==filesDoneList[i]) return true;
+	}
+	return false;
+}
