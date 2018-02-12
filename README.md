@@ -53,7 +53,7 @@ The __PALM_Zeiss_Toolset-v1.0.txt toolset__ is composed of 6 individual tools, t
 
 2. ![Set Parameters](README_img/2-Set_Parameters.jpg "Set Parameters") __Set Parameters:__ This user-interface provides a way to tune mainly the detection parameters:
 
-  ![Set Parameters](README_img/2b-Set_Parameters.jpg "Set Parameters")
+  ![Set Parameters GUI](README_img/2b-Set_Parameters.jpg "Set Parameters GUI")
   
     * _Stage parameters_: Coordinates, as extracted from the image's metadata, do are not exactly stage's coordinates. It seems an offset should be introduced. Those two numeric fields should be filled with offset values, to be determined by trial and error. One way to proceed is to take an image, draw a ROI in the Zeiss PALM software and export both files. The image is then imported in ImageJ, the same structure drawn and converted to an Element using the "Zeiss PALM/Zeiss PALM Elements: export from ROI Manager" plugin. Discrepancy between the exported Elements' list and the one generated using ImageJ should give hints about values to be used.
     * _Make grid_: Number of positions, ie rows and columns, to generate for the acquisition grid.
