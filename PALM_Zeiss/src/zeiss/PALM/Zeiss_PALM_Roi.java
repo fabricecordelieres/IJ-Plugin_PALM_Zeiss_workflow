@@ -95,7 +95,8 @@ public class Zeiss_PALM_Roi {
 		cutShot=new Point(0, 0);
 		
 		//Set area;
-		area=IJRoi.getMask().getPixelCount();
+		//area=IJRoi.getMask().getPixelCount();
+		area=IJRoi.getStatistics().pixelCount;
 		
 		//Set comment
 		comment="ROI imported from ImageJ";
